@@ -1,0 +1,12 @@
+1. Найти всех пользователей, которые зарегистрировались, но не подтвердили почту.
+SELECT tUser.name FROM tUser JOIN tAudit ON tUser.UserID = tAudit.UserID WHERE (SELECT sum(ActionType) FROM tAudit WHERE tUser.UserID = UserID) =1 ;
+
+
+2. Найти всех пользователей у которых просрочился токен доступа, текущую дату время из функции GetDate()
+SELECT tUser.name from tUser JOIN tAccessToken on tUser.userID = tAccessToken.UserID WHERE ExpireDate < now();
+
+3. Найти всех пользователей которые зарегистрировались, но не разу не заходили в систему.
+SELECT tUser.name FROM tUser JOIN tAudit ON tUser.UserID = tAudit.UserID WHERE (SELECT sum(ActionType) FROM tAudit WHERE tUser.UserID = UserID) BETWEEN 1 AND 3 ;
+
+4. Найти первых четырех пользователей, которые чаще всего неверно ввродят пароль.
+select tUser.name, count(*) from tUser JOIN taudit on tUser.userID = tAudit.UserID where ActionType = 5 GROUP BY tUser.userId ORDER BY count DESC LIMIT 4;
