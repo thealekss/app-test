@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository {
-    Optional<User> findUserByEmail(String email);
+    User findUserByEmail(String email);
 
-    Optional<List<User>> findUsersByName(String name);
+    List<User> findUsersByName(String name);
 
     User findUserById (int id);
 

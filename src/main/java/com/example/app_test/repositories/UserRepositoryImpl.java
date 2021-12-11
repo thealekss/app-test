@@ -20,17 +20,17 @@ public class UserRepositoryImpl implements UserRepository{
     private EntityManager entityManager;
 
     @Override
-    public Optional<User> findUserByEmail(String email) {
-        return Optional.of(entityManager.createQuery("select u from User u where u.mail = :mail", User.class)
+    public User findUserByEmail(String email) throws NoResultException{
+        return entityManager.createQuery("select u from User u where u.mail = :mail", User.class)
                 .setParameter("mail", email)
-                .getSingleResult());
+                .getSingleResult();
     }
 
     @Override
-    public Optional<List<User>> findUsersByName(String name) {
-        return Optional.of(entityManager.createQuery("select u from User u where u.name = :name", User.class)
+    public List<User> findUsersByName(String name) throws NoResultException {
+        return entityManager.createQuery("select u from User u where u.name = :name", User.class)
                 .setParameter("name", name)
-                .getResultList());
+                .getResultList();
     }
 
     @Override
